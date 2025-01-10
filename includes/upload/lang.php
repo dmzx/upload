@@ -17,8 +17,8 @@ class lang extends base
 	/**
 	 * The function that uploads the specified language package for the extension.
 	 *
-	 * @param string $action    Requested action.
-	 * @param string $ext_name  The name of the extension.
+	 * @param string $action	Requested action.
+	 * @param string $ext_name	The name of the extension.
 	 * @param string $lang_name The ISO code of the language.
 	 * @return bool
 	 */
@@ -118,7 +118,7 @@ class lang extends base
 			$response_object = new \phpbb\json_response;
 			$response_object->send(array(
 				"LANGUAGE" => urlencode($lang_name),
-				"REFRESH"  => true
+				"REFRESH"	=> true
 			));
 		}
 		objects::$template->assign_var('EXT_LANGUAGE_UPLOADED', objects::$user->lang('EXT_LANGUAGE_UPLOADED', $lang_name));

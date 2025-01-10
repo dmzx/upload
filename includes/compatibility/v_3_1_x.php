@@ -1,9 +1,9 @@
 <?php
 /**
  *
- * @package       Upload Extensions
+ * @package		Upload Extensions
  * @copyright (c) 2014 - 2019 Igor Lavrov (https://github.com/LavIgor) and John Peskens (http://ForumHulp.com)
- * @license       http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+ * @license		http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
  *
  */
 
@@ -63,8 +63,8 @@ class v_3_1_x implements base
 	 * Remote upload method
 	 * Uploads file from given url
 	 *
-	 * @param \fileupload             $upload           Files object
-	 * @param string                  $remote_url       URL pointing to file to upload, for example http://www.foobar.com/example.gif
+	 * @param \fileupload			 $upload			Files object
+	 * @param string					$remote_url		URL pointing to file to upload, for example http://www.foobar.com/example.gif
 	 * @param \phpbb\mimetype\guesser $mimetype_guesser Mimetype guesser
 	 * @return object $file Object "filespec" is returned, all further operations can be done with this object
 	 */
@@ -245,9 +245,9 @@ class v_3_1_x implements base
 	/**
 	 * Gets a parameter of filespec object.
 	 *
-	 * @param \filespec $file  Filespec object
-	 * @param string    $param 'init_error' for checking if there are any errors,
-	 *                         'filename' or 'destination_file' for getting corresponding values
+	 * @param \filespec $file	Filespec object
+	 * @param string	$param 'init_error' for checking if there are any errors,
+	 *						 'filename' or 'destination_file' for getting corresponding values
 	 * @return mixed
 	 */
 	public function filespec_get($file, $param)
@@ -289,10 +289,10 @@ class v_3_1_x implements base
 	 * and/or version from newer branch is needed for having all known security
 	 * issues fixed.
 	 *
-	 * @param \phpbb\version_helper $version_helper  Version helper object.
-	 * @param string                $current_version Current version of the extension.
-	 * @param bool                  $force_update    Ignores cached data. Defaults to false.
-	 * @param bool                  $force_cache     Force the use of the cache. Override $force_update.
+	 * @param \phpbb\version_helper $version_helper	Version helper object.
+	 * @param string				$current_version Current version of the extension.
+	 * @param bool					$force_update	Ignores cached data. Defaults to false.
+	 * @param bool					$force_cache	 Force the use of the cache. Override $force_update.
 	 * @return array Version info or empty array if there are no updates
 	 * @throws \RuntimeException
 	 */
@@ -348,10 +348,10 @@ class v_3_1_x implements base
 	/**
 	 * Check the version and return the available updates.
 	 *
-	 * @param \phpbb\extension\metadata_manager $md_manager   The metadata manager for the version to check.
-	 * @param bool                              $force_update Ignores cached data. Defaults to false.
-	 * @param bool                              $force_cache  Force the use of the cache. Override $force_update.
-	 * @param string                            $stability    Force the stability (null by default).
+	 * @param \phpbb\extension\metadata_manager $md_manager	The metadata manager for the version to check.
+	 * @param bool								$force_update Ignores cached data. Defaults to false.
+	 * @param bool								$force_cache	Force the use of the cache. Override $force_update.
+	 * @param string							$stability	Force the stability (null by default).
 	 * @return array
 	 * @throws \RuntimeException
 	 */

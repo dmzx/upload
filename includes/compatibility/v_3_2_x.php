@@ -1,9 +1,9 @@
 <?php
 /**
  *
- * @package       Upload Extensions
+ * @package		Upload Extensions
  * @copyright (c) 2014 - 2019 Igor Lavrov (https://github.com/LavIgor) and John Peskens (http://ForumHulp.com)
- * @license       http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+ * @license		http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
  *
  */
 
@@ -202,10 +202,10 @@ class v_3_2_x implements base
 	 * and/or version from newer branch is needed for having all known security
 	 * issues fixed.
 	 *
-	 * @param \phpbb\version_helper $version_helper  Version helper object.
-	 * @param string                $current_version Current version of the extension.
-	 * @param bool                  $force_update    Ignores cached data. Defaults to false.
-	 * @param bool                  $force_cache     Force the use of the cache. Override $force_update.
+	 * @param \phpbb\version_helper $version_helper	Version helper object.
+	 * @param string				$current_version Current version of the extension.
+	 * @param bool					$force_update	Ignores cached data. Defaults to false.
+	 * @param bool					$force_cache	 Force the use of the cache. Override $force_update.
 	 * @return array Version info or empty array if there are no updates
 	 * @throws \RuntimeException
 	 */

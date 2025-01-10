@@ -13,8 +13,8 @@ class languages
 {
 	/**
 	* Gets information about the language in the specified directory.
-	* @param string $path   The path to the language directory without slash at the end.
-	* @param string $lang   The ISO code of the language.
+	* @param string $path	The path to the language directory without slash at the end.
+	* @param string $lang	The ISO code of the language.
 	* @return array
 	*/
 	public static function details($path, $lang)

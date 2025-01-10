@@ -1,9 +1,9 @@
 <?php
 /**
  *
- * @package       Upload Extensions
+ * @package		Upload Extensions
  * @copyright (c) 2014 - 2019 Igor Lavrov (https://github.com/LavIgor) and John Peskens (http://ForumHulp.com)
- * @license       http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+ * @license		http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
  *
  */
 
@@ -19,13 +19,13 @@ class files
 	/**
 	 * The function that catches errors of other functions.
 	 * USAGE 1: files::catch_errors(my_function()); => If my_function returns true, continue.
-	 *          Otherwise the result of my_function() is printed as an error string.
+	 *			Otherwise the result of my_function() is printed as an error string.
 	 * USAGE 2: files::catch_errors('MY_ERROR', my_function()); => If my_function returns true, continue.
-	 *          If my_function returns false, print the string MY_ERROR.
+	 *			If my_function returns false, print the string MY_ERROR.
 	 * USAGE 3: files::catch_errors('MY_ERROR'); => Print the string MY_ERROR.
-	 * @param bool|string $error  The text to display in the case of an error. True if there were no errors.
-	 * @param bool        $result The result of the function what we need to catch errors of. True if there were no errors.
-	 * @return bool            $result
+	 * @param bool|string $error	The text to display in the case of an error. True if there were no errors.
+	 * @param bool		$result The result of the function what we need to catch errors of. True if there were no errors.
+	 * @return bool			$result
 	 */
 	public static function catch_errors($error, $result = false)
 	{
@@ -84,9 +84,9 @@ class files
 
 	/**
 	 * Function to remove folders and files.
-	 * @param string $dir       The directory for removal.
-	 * @param bool   $no_errors Whether there were errors before.
-	 * @return bool|string        True if there are no errors, error string otherwise.
+	 * @param string $dir		The directory for removal.
+	 * @param bool	$no_errors Whether there were errors before.
+	 * @return bool|string		True if there are no errors, error string otherwise.
 	 */
 	public static function rrmdir($dir, $no_errors = true)
 	{
@@ -123,7 +123,7 @@ class files
 	 * Function to copy folders and files.
 	 * @param string $src The path 'from'.
 	 * @param string $dst The path 'to'.
-	 * @return bool|string    True if there are no errors, error string otherwise.
+	 * @return bool|string	True if there are no errors, error string otherwise.
 	 */
 	public static function rcopy($src, $dst)
 	{
@@ -170,7 +170,7 @@ class files
 	 * Saves the contents of a file or a directory in a zip archive file.
 	 * @param string $dest_file The path to the contents for adding to the zip file.
 	 * @param string $dest_name The name of the zip file.
-	 * @param string $zip_dir   The directory for saving zip files.
+	 * @param string $zip_dir	The directory for saving zip files.
 	 */
 	public static function save_zip_archive($dest_file, $dest_name, $zip_dir)
 	{

@@ -73,9 +73,9 @@ abstract class base
 	/**
 	 * Original copyright information for the function from AutoMOD.
 	 * The function was almost totally changed by the authors of Upload Extensions.
-	 * @package       automod
+	 * @package		automod
 	 * @copyright (c) 2008 phpBB Group
-	 * @license       http://opensource.org/licenses/gpl-2.0.php GNU Public License
+	 * @license		http://opensource.org/licenses/gpl-2.0.php GNU Public License
 	 *
 	 * @param string $action Requested action.
 	 * @return \phpbb\files\filespec|\filespec|bool
@@ -84,9 +84,9 @@ abstract class base
 	{
 		//$can_upload = (@ini_get('file_uploads') == '0' || strtolower(@ini_get('file_uploads')) == 'off' || !@extension_loaded('zlib')) ? false : true;
 
-		objects::$user->add_lang('posting');  // For error messages
+		objects::$user->add_lang('posting');	// For error messages
 		$upload = objects::$compatibility->get_upload_object();
-		$upload->set_allowed_extensions(array('zip'));    // Only allow ZIP files
+		$upload->set_allowed_extensions(array('zip'));	// Only allow ZIP files
 
 		// Make sure the ext/ directory exists and if it doesn't, create it
 		if (!is_dir(objects::$phpbb_root_path . 'ext'))
@@ -157,9 +157,9 @@ abstract class base
 	/**
 	 * The function that uploads the specified extension.
 	 *
-	 * @param string                          $action     Requested action.
-	 * @param \phpbb\files\filespec|\filespec $file       Filespec object.
-	 * @param string                          $upload_dir The directory for zip files storage.
+	 * @param string							$action	 Requested action.
+	 * @param \phpbb\files\filespec|\filespec $file		Filespec object.
+	 * @param string							$upload_dir The directory for zip files storage.
 	 * @return string|bool
 	 */
 	public function get_dest_file($action, $file, $upload_dir)

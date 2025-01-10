@@ -1,9 +1,9 @@
 <?php
 /**
  *
- * @package       Upload Extensions
+ * @package		Upload Extensions
  * @copyright (c) 2014 - 2019 Igor Lavrov (https://github.com/LavIgor) and John Peskens (http://ForumHulp.com)
- * @license       http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+ * @license		http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
  *
  */
 
@@ -78,84 +78,51 @@ class zip extends \phpbb\files\types\base
 
 		$upload_from_phpbb = preg_match(objects::$phpbb_link_template, $upload_url, $match_phpbb);
 
+		// Validate URL
 		if (!preg_match('#^(https?://).*?\.(' . implode('|', $this->upload->allowed_extensions) . ')$#i', $upload_url, $match) && !$upload_from_phpbb)
 		{
 			return $this->factory->get('filespec')->set_error($this->language->lang($this->upload->error_prefix . 'URL_INVALID'));
 		}
 
 		$url = parse_url($upload_url);
-
-		$host = $url['host'];
-		$path = $url['path'];
-		$port = (!empty($url['port'])) ? (int) $url['port'] : 80;
-
 		$upload_ary['type'] = 'application/octet-stream';
 
 		$url['path'] = explode('.', $url['path']);
 		$ext = array_pop($url['path']);
-
 		$url['path'] = implode('', $url['path']);
 		$upload_ary['name'] = utf8_basename($url['path']) . (($ext) ? '.' . $ext : '');
-		$filename = $url['path'];
-		$filesize = 0;
-
 		$remote_max_filesize = $this->get_max_file_size();
 
-		$errno = 0;
-		$errstr = '';
+		// Initialize cURL
+		$ch = curl_init($upload_url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_TIMEOUT, $this->upload->upload_timeout);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($ch, CURLOPT_HEADER, true);
 
-		if (!($fsock = @fopen($upload_url, "r")))
+		$data = curl_exec($ch);
+		$errNo = curl_errno($ch);
+		$header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+		$headers = substr($data, 0, $header_size);
+		$body = substr($data, $header_size);
+		$filesize = strlen($body);
+
+		curl_close($ch);
+
+		// Handle cURL errors
+		if ($errNo || empty($body))
 		{
 			return $this->factory->get('filespec')->set_error($this->language->lang($this->upload->error_prefix . 'NOT_UPLOADED'));
 		}
 
-		// Make sure $path not beginning with /
-		if (strpos($path, '/') === 0)
+		// Check for file size limit
+		if ($remote_max_filesize && $filesize > $remote_max_filesize)
 		{
-			$path = substr($path, 1);
+			$max_filesize = get_formatted_filesize($remote_max_filesize, false);
+			return $this->factory->get('filespec')->set_error($this->language->lang($this->upload->error_prefix . 'WRONG_FILESIZE', $max_filesize['value'], $max_filesize['unit']));
 		}
 
-		$get_info = false;
-		$data = '';
-		$length = false;
-		$timer_stop = time() + $this->upload->upload_timeout;
-
-		while (!@feof($fsock))
-		{
-			if ($length)
-			{
-				// Don't attempt to read past end of file if server indicated length
-				$block = @fread($fsock, min($length - $filesize, 1024));
-			}
-			else
-			{
-				$block = @fread($fsock, 1024);
-			}
-
-			$filesize += strlen($block);
-
-			if ($remote_max_filesize && $filesize > $remote_max_filesize)
-			{
-				$max_filesize = get_formatted_filesize($remote_max_filesize, false);
-
-				return $this->factory->get('filespec')->set_error($this->language->lang($this->upload->error_prefix . 'WRONG_FILESIZE', $max_filesize['value'], $max_filesize['unit']));
-			}
-
-			$data .= $block;
-
-			// Cancel upload if we exceed timeout
-			if (time() >= $timer_stop)
-			{
-				return $this->factory->get('filespec')->set_error($this->upload->error_prefix . 'REMOTE_UPLOAD_TIMEOUT');
-			}
-		}
-		@fclose($fsock);
-
-		if (empty($data))
-		{
-			return $this->factory->get('filespec')->set_error($this->upload->error_prefix . 'EMPTY_REMOTE_DATA');
-		}
-
+		// Create a temporary file
 		$tmp_path = (@is_writable('/tmp/')) ? '/tmp/' : $this->phpbb_root_path . 'cache/';
 		$filename = tempnam($tmp_path, unique_id() . '-');
 
@@ -164,11 +131,12 @@ class zip extends \phpbb\files\types\base
 			return $this->factory->get('filespec')->set_error($this->upload->error_prefix . 'NOT_UPLOADED');
 		}
 
-		$upload_ary['size'] = fwrite($fp, $data);
+		fwrite($fp, $body);
 		fclose($fp);
-		unset($data);
 
+		$upload_ary['size'] = $filesize;
 		$upload_ary['tmp_name'] = $filename;
+
 		if ($upload_from_phpbb)
 		{
 			$upload_ary['name'] .= '.zip';

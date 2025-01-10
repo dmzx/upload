@@ -195,7 +195,7 @@ class extensions
 	/**
 	* Output the response.
 	* @param array $data The name of the extension and the status of the process.
-	*                    The text of the error can also be provided if the status is 'error'.
+	*					The text of the error can also be provided if the status is 'error'.
 	*/
 	protected static function response(array $data)
 	{

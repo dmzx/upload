@@ -1,9 +1,9 @@
 <?php
 /**
  *
- * @package       Upload Extensions
+ * @package		Upload Extensions
  * @copyright (c) 2014 - 2019 Igor Lavrov (https://github.com/LavIgor) and John Peskens (http://ForumHulp.com)
- * @license       http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+ * @license		http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
  *
  */
 
@@ -204,18 +204,36 @@ class extensions_list
 			$file = self::$baseUrl . '/' . $filename;
 		}
 
-		// url-encode $ signs in URLs as bad proxies choke on them
+		// URL-encode $ signs in URLs as bad proxies choke on them
 		if (($pos = strpos($file, '$')) && preg_match('{^https?://.*}i', $file))
 		{
 			$file = substr($file, 0, $pos) . '%24' . substr($file, $pos + 1);
 		}
 
-		$json = @file_get_contents($file);
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $file);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Handle redirects
+		curl_setopt($ch, CURLOPT_TIMEOUT, 10); // Set timeout
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Disable SSL verification (useful for testing)
+
+		$json = curl_exec($ch);
+
+		if (curl_errno($ch))
+		{
+			curl_close($ch);
+			return false; // Return false on error
+		}
+
+		curl_close($ch);
+
 		if ($sha256 && $sha256 !== hash('sha256', $json))
 		{
 			return false;
 		}
+
 		$data = json_decode($json, true);
+
 		if ($cacheKey && !empty($json))
 		{
 			cache::write($cacheKey, $json);

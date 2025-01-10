@@ -18,7 +18,7 @@ class filetree
 		if ($file != '')
 		{
 			$string = @file_get_contents($file);
-			echo '<div class="filename">' . substr($file, strrpos($file, '/') + 1) . '</div><div class="filecontent">' .  highlight_string($string, true) . '</div>';
+			echo '<div class="filename">' . substr($file, strrpos($file, '/') + 1) . '</div><div class="filecontent">' .	highlight_string($string, true) . '</div>';
 			exit();
 		}
 		return false;
@@ -66,7 +66,7 @@ class filetree
 			{
 				if (!is_dir($directory . '/' . $file[$key]))
 				{
-					$ext = substr($file[$key], strrpos($file[$key],  '.') + 1);
+					$ext = substr($file[$key], strrpos($file[$key],	'.') + 1);
 					if (!in_array($ext, $extensions))
 					{
 						unset($file[$key]);

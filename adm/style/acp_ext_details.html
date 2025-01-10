@@ -61,23 +61,23 @@
 		<div class="ext_details_markdown" id="ext_details_readme">{EXT_DETAILS_README}</div>
 		<div class="ext_details_markdown" id="ext_details_changelog">{EXT_DETAILS_CHANGELOG}</div>
 		<!-- ENDIF -->
-        <!-- IF SHOW_DETAILS_TAB == 'faq' || HAS_AJAX || S_EXT_DETAILS_SHOW_LANGUAGES -->
-        <div id="ext_details_faq" data-ext-show-faq="{S_EXT_DETAILS_SHOW_FAQ}"<!-- IF not HAS_AJAX && not S_EXT_DETAILS_SHOW_LANGUAGES --> style="display:block;"<!-- ENDIF-->>
+		<!-- IF SHOW_DETAILS_TAB == 'faq' || HAS_AJAX || S_EXT_DETAILS_SHOW_LANGUAGES -->
+		<div id="ext_details_faq" data-ext-show-faq="{S_EXT_DETAILS_SHOW_FAQ}"<!-- IF not HAS_AJAX && not S_EXT_DETAILS_SHOW_LANGUAGES --> style="display:block;"<!-- ENDIF-->>
 			<h1>{L_ACP_UPLOAD_EXT_HELP}</h1>
-            <!-- BEGIN upload_ext_faq_block -->
-            <div id="upload_ext_faq_item_{upload_ext_faq_block.SECTION_NUMBER}">
-                <span class="upload_ext_faq_title">{upload_ext_faq_block.BLOCK_TITLE}</span>
-                <!-- BEGIN faq_row -->
-                <div class="upload_ext_faq">
-                    <span class="upload_ext_faq_question">{upload_ext_faq_block.faq_row.FAQ_QUESTION}</span>
-                    <div class="upload_ext_faq_answer">{upload_ext_faq_block.faq_row.FAQ_ANSWER}</div>
-                </div>
-                <!-- END faq_row -->
-            </div>
-            <!-- IF not upload_ext_faq_block.S_LAST_ROW --><hr class="dashed" /><!-- ENDIF -->
-            <!-- END upload_ext_faq_block -->
-        </div>
-        <!-- ENDIF -->
+			<!-- BEGIN upload_ext_faq_block -->
+			<div id="upload_ext_faq_item_{upload_ext_faq_block.SECTION_NUMBER}">
+				<span class="upload_ext_faq_title">{upload_ext_faq_block.BLOCK_TITLE}</span>
+				<!-- BEGIN faq_row -->
+				<div class="upload_ext_faq">
+					<span class="upload_ext_faq_question">{upload_ext_faq_block.faq_row.FAQ_QUESTION}</span>
+					<div class="upload_ext_faq_answer">{upload_ext_faq_block.faq_row.FAQ_ANSWER}</div>
+				</div>
+				<!-- END faq_row -->
+			</div>
+			<!-- IF not upload_ext_faq_block.S_LAST_ROW --><hr class="dashed" /><!-- ENDIF -->
+			<!-- END upload_ext_faq_block -->
+		</div>
+		<!-- ENDIF -->
 		<!-- IF EXT_DETAILS_LANGUAGES || HAS_AJAX -->
 		<div id="ext_languages" data-ext-show-languages="{S_EXT_DETAILS_SHOW_LANGUAGES}"<!-- IF not HAS_AJAX --> style="display:block;"<!-- ENDIF-->>
 			<!-- IF .ext_languages -->

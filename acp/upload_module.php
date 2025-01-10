@@ -1,9 +1,9 @@
 <?php
 /**
  *
- * @package       Upload Extensions
+ * @package		Upload Extensions
  * @copyright (c) 2014 - 2019 Igor Lavrov (https://github.com/LavIgor) and John Peskens (http://ForumHulp.com)
- * @license       http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+ * @license		http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
  *
  */
 
@@ -59,20 +59,20 @@ class upload_module
 		$phpbb_link_template = '#^(https://)www.phpbb.com/customise/db/download/([0-9]*?)(/composer|/manual)?/?(\?sid\=[a-zA-Z0-9]*?)?$#i';
 
 		// Work with objects class instead of $this.
-		objects::$cache = &$cache;
-		objects::$config = &$config;
-		objects::$log = &$phpbb_log;
+		objects::$cache = $cache;
+		objects::$config = $config;
+		objects::$log = $phpbb_log;
 		objects::$phpEx = $phpEx;
-		objects::$phpbb_container = &$phpbb_container;
-		objects::$phpbb_extension_manager = &$phpbb_extension_manager;
+		objects::$phpbb_container = $phpbb_container;
+		objects::$phpbb_extension_manager = $phpbb_extension_manager;
 		objects::$phpbb_link_template = $phpbb_link_template;
 		objects::$phpbb_root_path = $phpbb_root_path;
-		objects::$request = &$request;
-		objects::$template = &$template;
-		objects::$tpl_name = &$this->tpl_name;
+		objects::$request = $request;
+		objects::$template = $template;
+		objects::$tpl_name = $this->tpl_name;
 		objects::$u_action = $this->u_action;
-		objects::$user = &$user;
-		objects::$zip_dir = &$this->zip_dir;
+		objects::$user = $user;
+		objects::$zip_dir = $this->zip_dir;
 
 		// Add support for different phpBB branches.
 		objects::set_compatibility_class();
@@ -85,7 +85,7 @@ class upload_module
 		{
 			$template->assign_vars(array(
 				'HAS_AJAX' => true,
-				'IS_AJAX'  => true,
+				'IS_AJAX'	=> true,
 			));
 			objects::$is_ajax = true;
 
@@ -137,7 +137,7 @@ class upload_module
 		else
 		{
 			$template->assign_vars(array(
-				'S_LOAD_ACTION'   => $action,
+				'S_LOAD_ACTION'	=> $action,
 				'U_MAIN_PAGE_URL' => build_url(
 					array('action', 'ajax', 'ajax_time', 'archive', 'ext_name', 'ext_show', 'lang', 'local_upload', 'result')
 				),
@@ -200,9 +200,9 @@ class upload_module
 					{
 						$md_manager = objects::$compatibility->create_metadata_manager($ext_name);
 						load::ajax_confirm_box(false, $user->lang('EXTENSION_DELETE_DATA_CONFIRM', $md_manager->get_metadata('display-name')), build_hidden_fields(array(
-							'i'        => $id,
-							'mode'     => $mode,
-							'action'   => $action,
+							'i'		=> $id,
+							'mode'	 => $mode,
+							'action'	=> $action,
 							'ext_name' => $ext_name,
 						)));
 					}
@@ -210,9 +210,9 @@ class upload_module
 					{
 						$md_manager = objects::$compatibility->create_metadata_manager($ext_name);
 						confirm_box(false, $user->lang('EXTENSION_DELETE_DATA_CONFIRM', $md_manager->get_metadata('display-name')), build_hidden_fields(array(
-							'i'        => $id,
-							'mode'     => $mode,
-							'action'   => $action,
+							'i'		=> $id,
+							'mode'	 => $mode,
+							'action'	=> $action,
 							'ext_name' => $ext_name,
 						)));
 					}
@@ -268,7 +268,7 @@ class upload_module
 				$extension = new extension();
 				$extension->upload($action);
 				$template->assign_vars(array(
-					'U_UPLOAD'       => $this->main_link . '&amp;action=upload',
+					'U_UPLOAD'		=> $this->main_link . '&amp;action=upload',
 					'S_FORM_ENCTYPE' => ' enctype="multipart/form-data"',
 				));
 			break;
@@ -280,7 +280,7 @@ class upload_module
 				}
 				load::zip_files();
 				$template->assign_vars(array(
-					'S_ZIP_PACKAGES'  => true,
+					'S_ZIP_PACKAGES'	=> true,
 					'U_DELETE_ACTION' => objects::$u_action . "&amp;action=delete_zip",
 				));
 			break;
@@ -292,7 +292,7 @@ class upload_module
 				}
 				extensions::list_uninstalled_exts();
 				$template->assign_vars(array(
-					'S_UNINSTALLED'   => true,
+					'S_UNINSTALLED'	=> true,
 					'U_DELETE_ACTION' => objects::$u_action . "&amp;action=delete_ext",
 				));
 			break;
@@ -353,9 +353,9 @@ class upload_module
 					if ($force_unstable)
 					{
 						$s_hidden_fields = build_hidden_fields(array(
-							'i'              => $id,
-							'mode'           => $mode,
-							'action'         => $action,
+							'i'				=> $id,
+							'mode'			=> $mode,
+							'action'		 => $action,
 							'force_unstable' => $force_unstable,
 						));
 
@@ -391,11 +391,11 @@ class upload_module
 				extensions::list_all_exts();
 
 				objects::$template->assign_vars(array(
-					'S_EXT_LIST'           => true,
+					'S_EXT_LIST'			=> true,
 					'U_VERSIONCHECK_FORCE' => objects::$u_action . '&amp;action=list&amp;versioncheck_force=1',
-					'FORCE_UNSTABLE'       => $config['extension_force_unstable'],
-					'SET_FORCE_UNSTABLE'   => objects::$request->variable('set_force_unstable', false),
-					'U_ACTION_LIST'        => objects::$u_action . '&amp;action=list',
+					'FORCE_UNSTABLE'		=> $config['extension_force_unstable'],
+					'SET_FORCE_UNSTABLE'	=> objects::$request->variable('set_force_unstable', false),
+					'U_ACTION_LIST'		=> objects::$u_action . '&amp;action=list',
 				));
 
 				add_form_key('version_check_settings');
@@ -459,10 +459,10 @@ class upload_module
 						{
 							$confirm_text = (sizeof($marked) > 1) ? $user->lang('EXTENSIONS_DELETE_CONFIRM', sizeof($marked)) : $user->lang('EXTENSION_DELETE_CONFIRM', $marked[0]);
 							confirm_box(false, $confirm_text, build_hidden_fields(array(
-								'i'         => $id,
-								'mode'      => $mode,
-								'action'    => $action,
-								'mark'      => $marked,
+								'i'		 => $id,
+								'mode'		=> $mode,
+								'action'	=> $action,
+								'mark'		=> $marked,
 								'delmarked' => $deletemark,
 							)));
 						}
@@ -499,10 +499,10 @@ class upload_module
 							{
 								$confirm_text = (sizeof($marked) > 1) ? $user->lang('EXTENSIONS_ZIP_DELETE_CONFIRM', sizeof($marked)) : $user->lang('EXTENSION_ZIP_DELETE_CONFIRM', $marked[0]);
 								confirm_box(false, $confirm_text, build_hidden_fields(array(
-									'i'         => $id,
-									'mode'      => $mode,
-									'action'    => $action,
-									'mark'      => $marked,
+									'i'		 => $id,
+									'mode'		=> $mode,
+									'action'	=> $action,
+									'mark'		=> $marked,
 									'delmarked' => $deletemark,
 								)));
 							}
@@ -546,10 +546,10 @@ class upload_module
 									$json_response = new \phpbb\json_response;
 									$json_response->send(array(
 										'MESSAGE_TITLE' => $user->lang['INFORMATION'],
-										'MESSAGE_TEXT'  => $result_text,
-										'REFRESH_DATA'  => array(
+										'MESSAGE_TEXT'	=> $result_text,
+										'REFRESH_DATA'	=> array(
 											'time' => 3,
-											'url'  => redirect(objects::$u_action . '&amp;action=details&amp;ext_show=languages&amp;ajax=1', true)
+											'url'	=> redirect(objects::$u_action . '&amp;action=details&amp;ext_show=languages&amp;ajax=1', true)
 										)
 									));
 								}
@@ -572,11 +572,11 @@ class upload_module
 					{
 						$confirm_text = (sizeof($marked) > 1) ? $user->lang('EXT_LANGUAGES_DELETE_CONFIRM', sizeof($marked)) : $user->lang('EXT_LANGUAGE_DELETE_CONFIRM', $marked[0]);
 						confirm_box(false, $confirm_text, build_hidden_fields(array(
-							'i'         => $id,
-							'mode'      => $mode,
-							'action'    => $action,
-							'ext_name'  => $ext_name,
-							'mark'      => $marked,
+							'i'		 => $id,
+							'mode'		=> $mode,
+							'action'	=> $action,
+							'ext_name'	=> $ext_name,
+							'mark'		=> $marked,
 							'delmarked' => $deletemark,
 						)));
 					}
@@ -595,7 +595,7 @@ class upload_module
 			case 'main':
 			default:
 				$template->assign_vars(array(
-					'U_UPLOAD'       => $this->main_link . '&amp;action=upload',
+					'U_UPLOAD'		=> $this->main_link . '&amp;action=upload',
 					'S_FORM_ENCTYPE' => ' enctype="multipart/form-data"',
 				));
 			break;
@@ -643,17 +643,17 @@ class upload_module
 				$require_php = (isset($latest_release['require']['php'])) ? $latest_release['require']['php'] : '';
 
 				objects::$template->assign_block_vars("phpbb_cdb", array(
-					'EXT_NAME'             => $display_name,
-					'EXT_VERSION'          => key($value),
-					'EXT_DOWNLOAD'         => $download_link,
+					'EXT_NAME'			 => $display_name,
+					'EXT_VERSION'			=> key($value),
+					'EXT_DOWNLOAD'		 => $download_link,
 					'EXT_DOWNLOAD_ENCODED' => urlencode($download_link),
-					'EXT_DESCRIPTION'      => $description,
-					'EXT_HOMEPAGE'         => $homepage_link,
-					'EXT_CHECKSUM'         => $shasum,
-					'REQUIRE_PHPBB'        => $require_phpbb,
+					'EXT_DESCRIPTION'		=> $description,
+					'EXT_HOMEPAGE'		 => $homepage_link,
+					'EXT_CHECKSUM'		 => $shasum,
+					'REQUIRE_PHPBB'		=> $require_phpbb,
 					'REQUIRE_PHPBB_STATUS' => !empty($require_phpbb),
-					'REQUIRE_PHP'          => $require_php,
-					'REQUIRE_PHP_STATUS'   => !empty($require_php),
+					'REQUIRE_PHP'			=> $require_php,
+					'REQUIRE_PHP_STATUS'	=> !empty($require_php),
 				));
 			}
 		}
@@ -675,7 +675,7 @@ class upload_module
 			else
 			{
 				objects::$template->assign_vars(array(
-					'S_EXT_ERROR'   => true,
+					'S_EXT_ERROR'	=> true,
 					'S_LOAD_ACTION' => 'error',
 				));
 			}
